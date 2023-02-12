@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEATHER APP</title>
+    <link rel="stylesheet" href="./weather.css">
+</head>
+<body>
+    <input type="text" type="submit" class="input1" placeholder="ENTER YOUR CITY NAME!">
+    <button type="button" id="btn">Submit</button>
+    <div class="container">
+
+    </div>
+</body>
+<script>
+    let city =document.querySelector(".input1")
+    let btn1 =document.getElementById("btn")
+    btn1.addEventListener("click",()=>{
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=6b68e8e028dd61523de8c13bdad58764`)
+    .then(response=>response.json())
+    .then(data=>{
+       let result =`<div>
+        <h1>City:${data.name}</h1></div>
+    <h1>temp = ${Math.floor(data["main"].temp-273)} °C</h1>
+       <h1>pressure=${data["main"].pressure}</h1>
+       <h1>humidity=${data["main"].humidity}</h1></div>`
+       let content=document.querySelector(".container")
+       content.innerHTML=result
+
+       console.log(data);
+    }).catch(error=>alert("Invalid city name"))
+    })
+ 
+</script>
+</html>
